@@ -1,0 +1,16 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0">
+	<persistence-unit name="Inmar-Services">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>java:/DefaultDS</jta-data-source>
+		<class>com.rightease.webservices.model.BaseModel</class>
+		<class>com.rightease.webservices.model.Category</class>
+		<class>com.rightease.webservices.model.Department</class>
+		<class>com.rightease.webservices.model.Location</class>
+		<class>com.rightease.webservices.model.SubCategory</class>
+		<class>com.rightease.webservices.model.Token</class>
+		<class>com.rightease.webservices.model.User</class>
+	</persistence-unit>
+</persistence>

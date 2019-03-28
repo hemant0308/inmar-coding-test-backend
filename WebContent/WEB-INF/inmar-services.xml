@@ -1,0 +1,91 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- Specifying base package of the Components like Controller, Service, 
+		DAO -->
+
+	<context:component-scan
+		base-package="com.inmar.api.controller" />
+
+	<context:component-scan
+		base-package="com.inmar.api.dao" />
+
+	<context:component-scan
+		base-package="com.inmar.api.service" />
+
+	<context:component-scan
+		base-package="com.inmar.api.config" />
+
+	<context:component-scan
+		base-package="com.inmar.api.helpers" />
+
+	<context:component-scan
+		base-package="com.inmar.api.model" />
+
+	<!-- Getting application properties -->
+	<context:property-placeholder
+		location="classpath:application.properties,
+				  classpath:secret.properties" />
+
+
+	<mvc:annotation-driven />
+
+	<!-- DataSource -->
+	<bean class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		id="dataSource">
+		<property name="driverClass" value="${database.driver}"></property>
+		<property name="jdbcUrl" value="${secret.database.url}"></property>
+		<property name="user" value="${secret.database.user}"></property>
+		<property name="password" value="${secret.database.password}"></property>
+		<property name="acquireIncrement"
+			value="${database.acquireIncrement}" />
+		<property name="minPoolSize" value="${database.minPoolSize}" />
+		<property name="maxPoolSize" value="${database.maxPoolSize}" />
+		<property name="maxIdleTime" value="${database.maxIdleTime}" />
+	</bean><!-- <bean class="com.rightease.webservices.config.QueryInterceptor" 
+		id="queryInterceptor"> </bean> -->
+
+	<!-- Hibernate SessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+			</props>
+		</property>
+		<property name="packagesToScan"
+			value="com.inmar.api.model"></property>
+	</bean>
+
+	<mvc:interceptors>
+		<bean
+			class="com.inmar.api.config.UserAuthenticationInterceptor"></bean>
+	</mvc:interceptors>
+	<mvc:cors>
+		<mvc:mapping path="/**"
+			allowed-origins="http://localhost,http://localhost:8020"
+			allowed-methods="PUT,POST,GET,DELETE" />
+	</mvc:cors>
+	<mvc:resources mapping="/resources/**"
+		location="file:C:\\Users\\rightease\\eclipse-workspace"></mvc:resources>
+	<!-- Transaction -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<mvc:annotation-driven />
+	<tx:annotation-driven transaction-manager="transactionManager" />
+</beans>
