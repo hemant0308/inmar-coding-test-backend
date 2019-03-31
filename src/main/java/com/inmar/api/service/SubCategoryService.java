@@ -9,7 +9,8 @@ public interface SubCategoryService {
 
 	List<SubCategory> getSubCategories(int locationId, int departmentId, int categoryId);
 
-	SubCategory saveSubCategory(int locationId, int departmentId, int categoryId, Map<String, Object> payload);
+	SubCategory saveSubCategory(int locationId, int departmentId, int categoryId, Map<String, Object> payload,
+			int userId);
 
 	List<SubCategory> getAllSubCategories();
 

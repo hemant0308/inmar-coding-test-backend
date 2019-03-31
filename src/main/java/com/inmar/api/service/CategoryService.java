@@ -9,7 +9,7 @@ public interface CategoryService {
 
 	List<Category> getCategories(int locationId, int departmentId);
 
-	Category saveCategory(int locationId, int departmentId, Map<String, Object> payload);
+	Category saveCategory(int locationId, int departmentId, Map<String, Object> payload, int userId);
 
 	List<Category> getAllCategories();
 

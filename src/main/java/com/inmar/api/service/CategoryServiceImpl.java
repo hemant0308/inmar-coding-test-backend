@@ -32,7 +32,7 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public Category saveCategory(int locationId, int departmentId, Map<String, Object> payload) {
+	public Category saveCategory(int locationId, int departmentId, Map<String, Object> payload, int userId) {
 		Category category;
 		if (payload.get("id") != null) {
 			log.debug("Id found in payload.Updating data");
@@ -45,7 +45,7 @@ public class CategoryServiceImpl implements CategoryService {
 		Department department = departmentDao.findById(departmentId);
 		category.setDepartment(department);
 		category.setName(payload.get("name").toString());
-		categoryDao.saveOrUpdate(category);
+		categoryDao.saveOrUpdate(category, userId);
 		return category;
 	}
 

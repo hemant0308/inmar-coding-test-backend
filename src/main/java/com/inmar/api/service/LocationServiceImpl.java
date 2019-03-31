@@ -37,7 +37,7 @@ public class LocationServiceImpl implements LocationService {
 	}
 
 	@Override
-	public Location saveLocation(Map<String, Object> payload) {
+	public Location saveLocation(Map<String, Object> payload, int userId) {
 		Location location;
 		if (payload.get("id") != null) {
 			int locationId = (int) payload.get("id");
@@ -48,7 +48,7 @@ public class LocationServiceImpl implements LocationService {
 			location = new Location();
 		}
 		location.setName(payload.get("name").toString());
-		locationDao.saveOrUpdate(location);
+		locationDao.saveOrUpdate(location, userId);
 		return location;
 	}
 

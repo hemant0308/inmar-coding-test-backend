@@ -32,7 +32,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 
 	@Override
-	public Department saveDepartment(int locationId, Map<String, Object> payload) {
+	public Department saveDepartment(int locationId, Map<String, Object> payload, int userId) {
 		Department department;
 		if (payload.get("id") != null) {
 			int departmentId = (int) payload.get("id");
@@ -45,7 +45,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 		Location location = locationDao.findById(locationId);
 		department.setLocation(location);
 		department.setName(payload.get("name").toString());
-		departmentDao.saveOrUpdate(department);
+		departmentDao.saveOrUpdate(department, userId);
 		return department;
 	}
 

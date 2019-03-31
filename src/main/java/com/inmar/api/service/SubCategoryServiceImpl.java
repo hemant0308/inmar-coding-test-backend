@@ -32,7 +32,8 @@ public class SubCategoryServiceImpl implements SubCategoryService {
 	}
 
 	@Override
-	public SubCategory saveSubCategory(int locationId, int departmentId, int categoryId, Map<String, Object> payload) {
+	public SubCategory saveSubCategory(int locationId, int departmentId, int categoryId, Map<String, Object> payload,
+			int userId) {
 		SubCategory subCategory;
 		if (payload.get("id") != null) {
 			int subCategoryId = (int) payload.get("id");
@@ -46,7 +47,7 @@ public class SubCategoryServiceImpl implements SubCategoryService {
 		subCategory.setCategory(category);
 
 		subCategory.setName(payload.get("name").toString());
-		subCategoryDao.saveOrUpdate(subCategory);
+		subCategoryDao.saveOrUpdate(subCategory, userId);
 		return subCategory;
 	}
 

@@ -33,6 +33,7 @@ public class UserAuthenticationInterceptor implements HandlerInterceptor {
 				try {
 					Map<String, Claim> claims = authenticationService.validateToken(token);
 					int userId = claims.get("userId").asInt();
+					request.setAttribute("userId", userId);
 					log.debug("User authenticated with userId : " + userId);
 					return true;
 				} catch (Exception e) {

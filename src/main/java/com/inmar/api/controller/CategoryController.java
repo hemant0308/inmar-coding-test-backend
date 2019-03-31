@@ -64,7 +64,9 @@ public class CategoryController {
 			@RequestBody Map<String, Object> payload, HttpServletRequest request) {
 		log.debug("Request received for : " + Mappings.SAVE_CATEGORY);
 
-		Category category = categoryService.saveCategory(locationId, departmentId, payload);
+		int userId = (int) request.getAttribute("userId");
+
+		Category category = categoryService.saveCategory(locationId, departmentId, payload, userId);
 
 		log.debug("Category saved.Identity is : " + category.getId());
 

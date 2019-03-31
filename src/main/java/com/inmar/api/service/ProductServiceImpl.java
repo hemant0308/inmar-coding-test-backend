@@ -79,21 +79,27 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Product saveProduct(Map<String, Object> payload) {
+	public Product saveProduct(Map<String, Object> payload, int userId) {
+
+		Product product;
+		if (payload.get("id") != null) {
+			product = productDao.findById((int) payload.get("id"));
+		} else {
+			product = new Product();
+		}
 		int categoryId = (int) payload.get("categoryId");
 		int departmentId = (int) payload.get("departmentId");
 		int locationId = (int) payload.get("locationId");
 		int subCategoryId = (int) payload.get("subCategoryId");
 		String name = (String) payload.get("name");
 		String sku = (String) payload.get("sku");
-		Product product = new Product();
 		product.setSku(sku);
 		product.setName(name);
 		product.setLocation(locationDao.findById(locationId));
 		product.setDepartment(departmentDao.findById(departmentId));
 		product.setCategory(categoryDao.findById(categoryId));
 		product.setSubCategory(subCategoryDao.findById(subCategoryId));
-		productDao.saveOrUpdate(product);
+		productDao.saveOrUpdate(product, userId);
 		return product;
 	}
 

@@ -9,7 +9,7 @@ public interface LocationService {
 
 	public List<Location> getLocations();
 
-	public Location saveLocation(Map<String, Object> payload);
+	public Location saveLocation(Map<String, Object> payload, int userId);
 
 	public Location deleteLocation(int locationId);
 

@@ -61,8 +61,10 @@ public class SubCategoryController {
 	public ResponseEntity<Object> saveSubCategory(@PathVariable int locationId, @PathVariable int departmentId,
 			@PathVariable int categoryId, @RequestBody Map<String, Object> payload, HttpServletRequest request) {
 		log.debug("POST Request received for : " + Mappings.SAVE_SUB_CATEGORY);
+		int userId = (int) request.getAttribute("userId");
 
-		SubCategory subCategory = subCategoryService.saveSubCategory(locationId, departmentId, categoryId, payload);
+		SubCategory subCategory = subCategoryService.saveSubCategory(locationId, departmentId, categoryId, payload,
+				userId);
 
 		log.debug("Save subCategory with identity : " + subCategory.getId());
 

@@ -60,7 +60,9 @@ public class DepartmentController {
 			HttpServletRequest request) {
 		log.debug("Request received for :" + Mappings.SAVE_DEPARTMENT);
 
-		Department department = departmentService.saveDepartment(locationId, payload);
+		int userId = (int) request.getAttribute("userId");
+
+		Department department = departmentService.saveDepartment(locationId, payload, userId);
 
 		log.debug("Deparment Saved with identity : " + department.getId());
 

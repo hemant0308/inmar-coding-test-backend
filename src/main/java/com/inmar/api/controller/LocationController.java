@@ -47,8 +47,9 @@ public class LocationController {
 	@RequestMapping(value = Mappings.SAVE_LOCATION, method = RequestMethod.POST)
 	public ResponseEntity<Object> saveLocation(@RequestBody Map<String, Object> payload, HttpServletRequest request) {
 		log.debug("Request received for :" + Mappings.SAVE_LOCATION);
+		int userId = (int) request.getAttribute("userId");
 
-		Location location = locationService.saveLocation(payload);
+		Location location = locationService.saveLocation(payload, userId);
 
 		log.debug("Location saved with identity : " + location.getId());
 

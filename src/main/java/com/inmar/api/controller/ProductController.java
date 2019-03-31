@@ -46,8 +46,9 @@ public class ProductController {
 	@RequestMapping(value = Mappings.SAVE_PRODUCT, method = RequestMethod.POST)
 	public ResponseEntity<Object> saveProduct(@RequestBody Map<String, Object> payload, HttpServletRequest request) {
 		log.debug("POST Request received for : " + Mappings.SAVE_PRODUCT);
+		int userId = (int) request.getAttribute("userId");
 
-		Product product = productService.saveProduct(payload);
+		Product product = productService.saveProduct(payload, userId);
 
 		log.debug("Saving product with identity : " + product.getId());
 

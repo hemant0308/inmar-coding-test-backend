@@ -9,7 +9,7 @@ public interface DepartmentService {
 
 	List<Department> getDepartments(int locationId);
 
-	Department saveDepartment(int locationId, Map<String, Object> payload);
+	Department saveDepartment(int locationId, Map<String, Object> payload, int userId);
 
 	List<Department> getAllDepartments();
 

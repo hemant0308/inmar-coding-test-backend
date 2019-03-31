@@ -9,7 +9,7 @@ public interface ProductService {
 
 	List<Product> getProducts(String location);
 
-	Product saveProduct(Map<String, Object> payload);
+	Product saveProduct(Map<String, Object> payload, int userId);
 
 	Product deleteProduct(int productId);
 
