@@ -12,4 +12,6 @@ public interface ProductDao extends BaseDao<Product> {
 
 	List<Product> getProducts(Location location, Department department, Category category, SubCategory subCategory);
 
+	List<Object[]> getMetaData();
+
 }

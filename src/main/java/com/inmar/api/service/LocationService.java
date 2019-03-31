@@ -11,4 +11,6 @@ public interface LocationService {
 
 	public Location saveLocation(Map<String, Object> payload);
 
+	public Location deleteLocation(int locationId);
+
 }

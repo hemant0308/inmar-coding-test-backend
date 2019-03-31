@@ -11,4 +11,8 @@ public interface SubCategoryService {
 
 	SubCategory saveSubCategory(int locationId, int departmentId, int categoryId, Map<String, Object> payload);
 
+	List<SubCategory> getAllSubCategories();
+
+	SubCategory deleteSubCategory(int locationId, int departmentId, int categoryId, int subCategoryId);
+
 }

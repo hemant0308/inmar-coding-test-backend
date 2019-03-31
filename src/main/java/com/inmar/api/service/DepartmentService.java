@@ -11,4 +11,8 @@ public interface DepartmentService {
 
 	Department saveDepartment(int locationId, Map<String, Object> payload);
 
+	List<Department> getAllDepartments();
+
+	Department deleteDepartment(int locationId, int departmentId);
+
 }

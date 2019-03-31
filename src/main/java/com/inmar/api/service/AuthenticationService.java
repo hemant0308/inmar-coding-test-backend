@@ -1,7 +1,11 @@
 package com.inmar.api.service;
 
-import com.inmar.api.model.Token;
+import java.util.Map;
+
+import com.auth0.jwt.interfaces.Claim;
 
 public interface AuthenticationService {
-	public Token validateToken(String token);
+	public Map<String, Claim> validateToken(String token);
+
+	String generateToken(int userId);
 }

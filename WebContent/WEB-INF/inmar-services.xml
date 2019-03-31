@@ -13,22 +13,7 @@
 		DAO -->
 
 	<context:component-scan
-		base-package="com.inmar.api.controller" />
-
-	<context:component-scan
-		base-package="com.inmar.api.dao" />
-
-	<context:component-scan
-		base-package="com.inmar.api.service" />
-
-	<context:component-scan
-		base-package="com.inmar.api.config" />
-
-	<context:component-scan
-		base-package="com.inmar.api.helpers" />
-
-	<context:component-scan
-		base-package="com.inmar.api.model" />
+		base-package="com.inmar.api" />
 
 	<!-- Getting application properties -->
 	<context:property-placeholder
@@ -65,18 +50,17 @@
 				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
 			</props>
 		</property>
-		<property name="packagesToScan"
-			value="com.inmar.api.model"></property>
+		<property name="packagesToScan" value="com.inmar.api.model"></property>
 	</bean>
 
 	<mvc:interceptors>
-		<bean
-			class="com.inmar.api.config.UserAuthenticationInterceptor"></bean>
+		<bean class="com.inmar.api.config.UserAuthenticationInterceptor"></bean>
 	</mvc:interceptors>
 	<mvc:cors>
-		<mvc:mapping path="/**"
-			allowed-origins="http://localhost,http://localhost:8020"
-			allowed-methods="PUT,POST,GET,DELETE" />
+		<mvc:mapping path="/**" allowed-origins="*"
+			allowed-headers="Content-Type, content-type, x-requested-with, Access-Control-Allow-Origin, Access-Control-Allow-Headers, x-auth-token, x-app-id, Origin,Accept, X-Requested-With, Access-Control-Request-Method, Access-Control-Request-Headers"
+			allowed-methods="*"
+			exposed-headers="x-auth-token, Access-Control-Allow-Origin" />
 	</mvc:cors>
 	<mvc:resources mapping="/resources/**"
 		location="file:C:\\Users\\rightease\\eclipse-workspace"></mvc:resources>
@@ -85,7 +69,8 @@
 		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	
+
 	<mvc:annotation-driven />
-	<tx:annotation-driven transaction-manager="transactionManager" />
+	<tx:annotation-driven
+		transaction-manager="transactionManager" />
 </beans>

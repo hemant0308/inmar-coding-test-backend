@@ -27,7 +27,7 @@ public class Location extends BaseModel implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	private String location;
+	private String name;
 
 	// bi-directional many-to-one association to Department
 	@JsonIgnore
@@ -45,12 +45,12 @@ public class Location extends BaseModel implements Serializable {
 		this.id = id;
 	}
 
-	public String getLocation() {
-		return this.location;
+	public String getName() {
+		return name;
 	}
 
-	public void setLocation(String location) {
-		this.location = location;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public List<Department> getDepartments() {

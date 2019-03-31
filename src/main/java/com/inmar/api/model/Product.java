@@ -44,6 +44,8 @@ public class Product extends BaseModel implements Serializable {
 
 	private String sku;
 
+	private String name;
+
 	public Product() {
 	}
 
@@ -93,6 +95,14 @@ public class Product extends BaseModel implements Serializable {
 
 	public void setSku(String sku) {
 		this.sku = sku;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

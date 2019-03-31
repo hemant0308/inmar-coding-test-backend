@@ -2,7 +2,6 @@ package com.inmar.api.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,8 +27,7 @@ public class SubCategory extends BaseModel implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name = "sub_category")
-	private String subCategory;
+	private String name;
 
 	// bi-directional many-to-one association to Category
 	@JsonIgnore
@@ -48,12 +46,12 @@ public class SubCategory extends BaseModel implements Serializable {
 		this.id = id;
 	}
 
-	public String getSubCategory() {
-		return this.subCategory;
+	public String getName() {
+		return name;
 	}
 
-	public void setSubCategory(String subCategory) {
-		this.subCategory = subCategory;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Category getCategory() {
