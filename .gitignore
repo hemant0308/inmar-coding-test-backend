@@ -1,2 +1,15 @@
-/build/
+*~
+#*
+.project
+.settings
+.classpath
+*/.project
+*/.classpath
+*/.settings
+.DS_STORE
+target/*
+*/target
+*/target/*
 /target/
+/WebContent/WEB-INF/uploads
+/bin
