@@ -106,7 +106,7 @@ public class SubCategoryTest {
 	public void saveSubCategory() {
 		Map<String, Object> payload = new HashMap<String, Object>();
 		payload.put("name", "subCategory");
-		SubCategory subCategory = subCategoryService.saveSubCategory(1, 1, 1, payload);
+		SubCategory subCategory = subCategoryService.saveSubCategory(1, 1, 1, payload, 1);
 
 		assertEquals(subCategory.getName(), "subCategory");
 	}
@@ -116,7 +116,7 @@ public class SubCategoryTest {
 		Map<String, Object> payload = new HashMap<String, Object>();
 		payload.put("name", "subCategory2");
 		payload.put("id", 1);
-		SubCategory subCategory = subCategoryService.saveSubCategory(1, 1, 1, payload);
+		SubCategory subCategory = subCategoryService.saveSubCategory(1, 1, 1, payload, 1);
 
 		assertEquals(subCategory.getName(), "subCategory2");
 	}
