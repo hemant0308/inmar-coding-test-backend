@@ -13,6 +13,6 @@ public interface DepartmentService {
 
 	List<Department> getAllDepartments();
 
-	Department deleteDepartment(int locationId, int departmentId);
+	Department deleteDepartment(int locationId, int departmentId) throws Exception;
 
 }

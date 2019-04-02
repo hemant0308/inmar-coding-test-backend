@@ -79,13 +79,17 @@ public class SubCategoryController {
 			@PathVariable int categoryId, @PathVariable int subCategoryId, HttpServletRequest request) {
 		log.debug("POST Request received for : " + Mappings.DELETE_SUB_CATEGORY);
 
-		SubCategory subCategory = subCategoryService.deleteSubCategory(locationId, departmentId, categoryId,
-				subCategoryId);
-
-		log.debug("Deleting subCategory with id :" + subCategory.getId());
-
 		Map<String, Object> response = new HashMap<String, Object>();
-		response.put("subCategory", subCategory);
+		try {
+			SubCategory subCategory = subCategoryService.deleteSubCategory(locationId, departmentId, categoryId,
+					subCategoryId);
+
+			log.debug("Deleting subCategory with id :" + subCategory.getId());
+
+			response.put("subCategory", subCategory);
+		} catch (Exception e) {
+			response.put("message", e.getMessage());
+		}
 
 		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}

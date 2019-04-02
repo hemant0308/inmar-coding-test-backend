@@ -13,8 +13,10 @@ import com.inmar.api.controller.LocationController;
 import com.inmar.api.dao.CategoryDao;
 import com.inmar.api.dao.DepartmentDao;
 import com.inmar.api.dao.LocationDao;
+import com.inmar.api.dao.ProductDao;
 import com.inmar.api.dao.SubCategoryDao;
 import com.inmar.api.model.Location;
+import com.inmar.api.model.Product;
 
 @Transactional
 @Service
@@ -29,6 +31,8 @@ public class LocationServiceImpl implements LocationService {
 	LocationDao locationDao;
 	@Autowired
 	SubCategoryDao subCategoryDao;
+	@Autowired
+	ProductDao productDao;
 
 	@Override
 	public List<Location> getLocations() {
@@ -53,8 +57,12 @@ public class LocationServiceImpl implements LocationService {
 	}
 
 	@Override
-	public Location deleteLocation(int locationId) {
+	public Location deleteLocation(int locationId) throws Exception {
 		Location location = locationDao.findById(locationId);
+		List<Product> products = productDao.getProducts(location, null, null, null);
+		if (products.size() > 0) {
+			throw new Exception("Cannot delete Location.There are products tagged to this location");
+		}
 		locationDao.delete(location);
 		return location;
 	}

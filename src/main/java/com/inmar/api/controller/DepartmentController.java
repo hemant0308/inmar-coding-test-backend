@@ -77,13 +77,18 @@ public class DepartmentController {
 			HttpServletRequest request) {
 		log.debug("Request received for : " + Mappings.DELETE_DEPARTMENT);
 
-		Department department = departmentService.deleteDepartment(locationId, departmentId);
-
-		log.debug("Deleted department with id :" + department.getId());
-
 		Map<String, Object> response = new HashMap<String, Object>();
-		response.put("department", department);
+		try {
 
+			Department department = departmentService.deleteDepartment(locationId, departmentId);
+
+			log.debug("Deleted department with id :" + department.getId());
+
+			response.put("department", department);
+
+		} catch (Exception e) {
+			response.put("message", e.getMessage());
+		}
 		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
 }

@@ -11,8 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.inmar.api.controller.LocationController;
 import com.inmar.api.dao.CategoryDao;
+import com.inmar.api.dao.ProductDao;
 import com.inmar.api.dao.SubCategoryDao;
 import com.inmar.api.model.Category;
+import com.inmar.api.model.Product;
 import com.inmar.api.model.SubCategory;
 
 @Service
@@ -24,6 +26,8 @@ public class SubCategoryServiceImpl implements SubCategoryService {
 	CategoryDao categoryDao;
 	@Autowired
 	SubCategoryDao subCategoryDao;
+	@Autowired
+	ProductDao productDao;
 
 	@Override
 	public List<SubCategory> getSubCategories(int locationId, int departmentId, int categoryId) {
@@ -57,8 +61,13 @@ public class SubCategoryServiceImpl implements SubCategoryService {
 	}
 
 	@Override
-	public SubCategory deleteSubCategory(int locationId, int departmentId, int categoryId, int subCategoryId) {
+	public SubCategory deleteSubCategory(int locationId, int departmentId, int categoryId, int subCategoryId)
+			throws Exception {
 		SubCategory subCategory = subCategoryDao.findById(subCategoryId);
+		List<Product> products = productDao.getProducts(null, null, null, subCategory);
+		if (products.size() > 0) {
+			throw new Exception("Cannot delete Subcategory.This Subcategory is already tagged to a product");
+		}
 		subCategoryDao.delete(subCategory);
 		return subCategory;
 	}

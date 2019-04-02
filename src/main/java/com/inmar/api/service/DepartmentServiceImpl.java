@@ -12,8 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.inmar.api.controller.LocationController;
 import com.inmar.api.dao.DepartmentDao;
 import com.inmar.api.dao.LocationDao;
+import com.inmar.api.dao.ProductDao;
 import com.inmar.api.model.Department;
 import com.inmar.api.model.Location;
+import com.inmar.api.model.Product;
 
 @Service
 @Transactional
@@ -24,6 +26,8 @@ public class DepartmentServiceImpl implements DepartmentService {
 	LocationDao locationDao;
 	@Autowired
 	DepartmentDao departmentDao;
+	@Autowired
+	ProductDao productDao;
 
 	@Override
 	public List<Department> getDepartments(int locationId) {
@@ -55,8 +59,12 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 
 	@Override
-	public Department deleteDepartment(int locationId, int departmentId) {
+	public Department deleteDepartment(int locationId, int departmentId) throws Exception {
 		Department department = departmentDao.findById(departmentId);
+		List<Product> products = productDao.getProducts(null, department, null, null);
+		if (products.size() > 0) {
+			throw new Exception("Cannot delete department.This department is tagged to product.");
+		}
 		departmentDao.delete(department);
 		return department;
 	}

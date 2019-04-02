@@ -14,6 +14,6 @@ public interface SubCategoryService {
 
 	List<SubCategory> getAllSubCategories();
 
-	SubCategory deleteSubCategory(int locationId, int departmentId, int categoryId, int subCategoryId);
+	SubCategory deleteSubCategory(int locationId, int departmentId, int categoryId, int subCategoryId) throws Exception;
 
 }

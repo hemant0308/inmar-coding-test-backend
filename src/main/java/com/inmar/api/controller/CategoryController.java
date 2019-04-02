@@ -79,16 +79,19 @@ public class CategoryController {
 	@RequestMapping(value = Mappings.DELETE_CATEGORY, method = RequestMethod.POST)
 	public ResponseEntity<Object> deleteCategory(@PathVariable int locationId, @PathVariable int departmentId,
 			@PathVariable int categoryId, HttpServletRequest request) {
+		Map<String, Object> response = new HashMap<String, Object>();
 
 		log.debug("Request received for : " + Mappings.DELETE_CATEGORY);
 
-		Category category = categoryService.deleteCategory(locationId, departmentId, categoryId);
+		try {
+			Category category = categoryService.deleteCategory(locationId, departmentId, categoryId);
 
-		Map<String, Object> response = new HashMap<String, Object>();
-		response.put("category", category);
+			response.put("category", category);
 
-		log.debug("Deleted Category with id :" + category.getId());
-
+			log.debug("Deleted Category with id :" + category.getId());
+		} catch (Exception e) {
+			response.put("message", e.getMessage());
+		}
 		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
 }

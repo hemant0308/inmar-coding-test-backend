@@ -13,6 +13,6 @@ public interface CategoryService {
 
 	List<Category> getAllCategories();
 
-	Category deleteCategory(int locationId, int departmentId, int categoryId);
+	Category deleteCategory(int locationId, int departmentId, int categoryId) throws Exception;
 
 }

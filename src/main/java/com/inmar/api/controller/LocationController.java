@@ -63,13 +63,14 @@ public class LocationController {
 	public ResponseEntity<Object> deleteLocation(@PathVariable int locationId, HttpServletRequest request) {
 		log.debug("Request received for :" + Mappings.DELETE_LOCATION);
 
-		Location location = locationService.deleteLocation(locationId);
-
-		log.debug("Delete location with id : " + location.getId());
-
 		Map<String, Object> response = new HashMap<String, Object>();
-		response.put("location", location);
-
+		try {
+			Location location = locationService.deleteLocation(locationId);
+			response.put("location", location);
+			log.debug("Delete location with id : " + location.getId());
+		} catch (Exception e) {
+			response.put("message", e.getMessage());
+		}
 		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
 
