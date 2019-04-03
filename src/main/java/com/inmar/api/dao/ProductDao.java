@@ -14,4 +14,5 @@ public interface ProductDao extends BaseDao<Product> {
 
 	List<Object[]> getMetaData();
 
+	Product getProduct(String sku);
 }

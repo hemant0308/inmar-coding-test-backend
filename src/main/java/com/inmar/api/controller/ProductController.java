@@ -47,13 +47,18 @@ public class ProductController {
 	public ResponseEntity<Object> saveProduct(@RequestBody Map<String, Object> payload, HttpServletRequest request) {
 		log.debug("POST Request received for : " + Mappings.SAVE_PRODUCT);
 		int userId = (int) request.getAttribute("userId");
-
-		Product product = productService.saveProduct(payload, userId);
-
-		log.debug("Saving product with identity : " + product.getId());
-
 		Map<String, Object> response = new HashMap<String, Object>();
-		response.put("product", product);
+
+		try {
+			Product product = productService.saveProduct(payload, userId);
+
+			log.debug("Saving product with identity : " + product.getId());
+			response.put("product", product);
+
+		} catch (Exception e) {
+			log.debug("stack trace", e);
+			response.put("message", e.getMessage());
+		}
 
 		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}

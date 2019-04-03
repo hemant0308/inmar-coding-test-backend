@@ -42,4 +42,12 @@ public class ProductDaoImpl extends BaseDaoImpl<Product> implements ProductDao {
 		return query.getResultList();
 	}
 
+	@Override
+	public Product getProduct(String sku) {
+		String queryString = "FROM Product WHERE sku = :sku";
+		Query<Product> query = getSession().createQuery(queryString, Product.class);
+		query.setParameter("sku", sku);
+		return query.getSingleResult();
+	}
+
 }

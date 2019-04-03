@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.NoResultException;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,12 +81,23 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Product saveProduct(Map<String, Object> payload, int userId) {
+	public Product saveProduct(Map<String, Object> payload, int userId) throws Exception {
 
 		Product product;
+
+		String sku = (String) payload.get("sku");
 		if (payload.get("id") != null) {
 			product = productDao.findById((int) payload.get("id"));
 		} else {
+			try {
+				product = productDao.getProduct(sku);
+			} catch (NoResultException e) {
+				log.debug("stack trace", e);
+				product = null;
+			}
+			if (product != null) {
+				throw new Exception("Duplicate SKU");
+			}
 			product = new Product();
 		}
 		int categoryId = (int) payload.get("categoryId");
@@ -92,7 +105,8 @@ public class ProductServiceImpl implements ProductService {
 		int locationId = (int) payload.get("locationId");
 		int subCategoryId = (int) payload.get("subCategoryId");
 		String name = (String) payload.get("name");
-		String sku = (String) payload.get("sku");
+		Product _product = null;
+
 		product.setSku(sku);
 		product.setName(name);
 		product.setLocation(locationDao.findById(locationId));
